@@ -1,0 +1,5 @@
+/**:
+  ros__parameters:
+    odometry_topic: ""
+    occupancy_map_topic: ""
+    planner: ""
