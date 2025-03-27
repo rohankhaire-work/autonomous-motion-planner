@@ -5,6 +5,13 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 find_package(rclcpp REQUIRED)
 find_package(grid_map_ros REQUIRED)
 find_package(nav_msgs REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
+
+rosidl_generate_interfaces(motion_planner
+  "msg/Waypoint.msg"
+  "msg/Path.msg"
+  DEPENDENCIES std_msgs
+)
 
 add_executable(motion_planner src/motion_planner.cpp
                               src/planners/a_star.cpp)
