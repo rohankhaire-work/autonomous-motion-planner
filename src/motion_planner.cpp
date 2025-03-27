@@ -1,5 +1,4 @@
 #include "autonomous_motion_planner/motion_planner.hpp"
-#include <nav_msgs/msg/detail/odometry__struct.hpp>
 
 MotionPlanner::MotionPlanner() : Node("motion_planner_node")
 {
@@ -23,10 +22,10 @@ MotionPlanner::MotionPlanner() : Node("motion_planner_node")
   odom_sub_ = create_subscription<nav_msgs::msg::Odometry>(
     odom_topic_, 1,
     std::bind(&MotionPlanner::odometryCallback, this, std::placeholders::_1));
-  occ_grid_sub_ = create_subscription<nav_msgs::msg::OccupancyGrid>(
+  occ_grid_sub_ = create_subscription<grid_map_msgs::msg::GridMap>(
     grid_map_topic_, 1,
     std::bind(&MotionPlanner::gridCallback, this, std::placeholders::_1));
-  timer_ = this->create_wall_timer(std::chrono::milliseconds(50),
+  timer_ = this->create_wall_timer(std::chrono::milliseconds(20),
                                    std::bind(&MotionPlanner::timerCallback, this));
 }
 
@@ -35,7 +34,7 @@ void MotionPlanner::odometryCallback(const nav_msgs::msg::Odometry::ConstSharedP
   return;
 }
 
-void MotionPlanner::gridCallback(const nav_msgs::msg::OccupancyGrid::ConstSharedPtr &msg)
+void MotionPlanner::gridCallback(const grid_map_msgs::msg::GridMap::ConstSharedPtr &msg)
 {
   return;
 }
